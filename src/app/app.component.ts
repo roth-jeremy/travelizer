@@ -8,6 +8,8 @@ import { MyTripsPage } from '../pages/my-trips/my-trips';
 import { SearchTripPage } from '../pages/search-trip/search-trip';
 import { HelpPage } from '../pages/help/help';
 import { SettingsPage } from '../pages/settings/settings';
+import { LoginPage } from '../pages/login/login';
+import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,12 +17,27 @@ import { SettingsPage } from '../pages/settings/settings';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    private auth: AuthProvider, 
+    public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen  
+    ) {
+
     this.initializeApp();
+
+    this.auth.isAuthenticated().subscribe(authenticated => {
+      if (authenticated) {
+        this.rootPage = HomePage;
+      } else {
+        this.rootPage = LoginPage;
+      }
+      
+    });
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -46,5 +63,9 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  logOut() {
+    this.auth.logOut();
   }
 }
