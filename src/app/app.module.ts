@@ -15,6 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthProvider } from '../providers/auth/auth';
+import { CreateUserPage } from '../pages/create-user/create-user';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AuthProvider } from '../providers/auth/auth';
     HelpPage,
     SettingsPage,
     LoginPage,
+    CreateUserPage,
   ],
   imports: [
     BrowserModule,
@@ -41,12 +43,13 @@ import { AuthProvider } from '../providers/auth/auth';
     HelpPage,
     SettingsPage,
     LoginPage,
+    CreateUserPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
   ]
 })
 

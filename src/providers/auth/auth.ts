@@ -47,7 +47,7 @@ export class AuthProvider {
 
   logIn(authRequest: AuthRequest): Observable<User> {
 
-    const authUrl = 'https://comem-travel-log-api.herokuapp.com/api/auth';
+    const authUrl = 'https://comem-appmob-2018-2019-d.herokuapp.com/api/auth';
     return this.http.post<AuthResponse>(authUrl, authRequest).pipe(
       delayWhen(auth => {
         return this.saveAuth(auth);

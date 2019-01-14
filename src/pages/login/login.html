@@ -16,6 +16,11 @@
 <ion-content padding>
     <form (submit)='onSubmit($event)'>
         <ion-list>
+
+          <!-- Success message if account was successfully created -->
+          <ion-item *ngIf='createdUser' no-lines>
+              <p ion-text color='success'>Account created successfully</p>
+          </ion-item>
       
           <!-- Username input -->
           <ion-item>
@@ -47,6 +52,9 @@
       
           <!-- Submit button -->
           <button type='submit' [disabled]='form.invalid' ion-button block>Log in</button>
+
+          <!-- Create account button -->
+          <button type='submit' ion-button block (click)="createAccount()">Create Account</button>
       
           <!-- Error message displayed if the login failed -->
           <p *ngIf='loginError' ion-text color='danger'>Username or password is invalid.</p>
