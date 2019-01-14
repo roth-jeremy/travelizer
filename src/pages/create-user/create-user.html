@@ -18,21 +18,36 @@
               <ion-list inset>
     
                 <ion-item>
-                  <ion-input type="text" placeholder="Username" name="name" #nameInput='ngModel' [(ngModel)]="registerCredentials.name" required></ion-input>
+                  <ion-input type="text" placeholder="Username" name="name" required minlength="3" maxlength="25" #nameInput='ngModel' [(ngModel)]="registerCredentials.name" required></ion-input>
                 </ion-item>
     
                 <ion-item>
-                  <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+                  <ion-input type="password" placeholder="Password" name="password" required minlength="4" #passwordInput='ngModel' [(ngModel)]="registerCredentials.password" required></ion-input>
                 </ion-item>
 
-                <!-- Error message displayed if the username is invalid -->
-                <ion-item *ngIf='nameInput.invalid && nameInput.dirty' no-lines>
+                <!-- Error message displayed if the username is not filled -->
+                <ion-item *ngIf='nameInput.errors?.required && nameInput.dirty' no-lines>
                   <p ion-text color='danger'>Username is required.</p>
                 </ion-item>
+
+                <!-- Error message displayed if the password is not filled -->
+                <ion-item *ngIf='passwordInput.errors?.required && passwordInput.dirty' no-lines>
+                    <p ion-text color='danger'>Password is required.</p>
+                  </ion-item>
 
                 <!-- Error message displayed if the username already exists -->
                 <ion-item *ngIf='nameExists' no-lines>
                     <p ion-text color='danger'>Username already exists.</p>
+                </ion-item>
+
+                <!-- Error message displayed if the username is too short or too long -->
+                <ion-item *ngIf='(nameInput.errors?.minlength || nameInput.errors?.maxlength) && nameInput.dirty' no-lines>
+                    <p ion-text color='danger'>Username is forbidden.</p>
+                </ion-item>
+
+                <!-- Error message displayed if the password is too short -->
+                <ion-item *ngIf='passwordInput.errors?.minlength && passwordInput.dirty' no-lines>
+                    <p ion-text color='danger'>Password is too short.</p>
                 </ion-item>
     
               </ion-list>

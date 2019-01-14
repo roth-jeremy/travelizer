@@ -74,7 +74,7 @@ export class CreateUserPage {
       this.navCtrl.push(LoginPage, {user: createdUser});
     }, err => {
       console.log(err);
-      if (err.error.errors.name.kind == "unique") {
+      if (err.error.errors.name && err.error.errors.name.kind == "unique") {
         this.nameExists = true;
       }
       this.registerError = true;
