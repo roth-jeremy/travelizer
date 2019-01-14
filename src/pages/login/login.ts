@@ -1,10 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
+import { Nav } from 'ionic-angular';
 
 import { AuthRequest } from '../../models/auth-request';
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home';
+import { CreateUserPage } from '../create-user/create-user';
+import { User } from '../../models/user';
 
 /**
  * Login page.
@@ -30,13 +32,26 @@ export class LoginPage {
   loginError: boolean;
 
   /**
+   * The user created if redirected from the acount creation page to the login page
+   */
+  createdUser: User;
+
+  /**
    * The login form.
    */
   @ViewChild(NgForm)
   form: NgForm;
 
-  constructor(private auth: AuthProvider, private navCtrl: NavController) {
+  constructor(private auth: AuthProvider, private navCtrl: NavController, private nav: Nav, private navParams: NavParams) {
     this.authRequest = new AuthRequest();
+  }
+
+  ionViewDidLoad() {
+    this.createdUser = this.navParams.get('user');
+    // if redirected to login page from the account creation page, autofill the username field
+    if (this.createdUser) {
+      this.authRequest.username = this.createdUser.name;
+    }
   }
 
   /**
@@ -60,5 +75,10 @@ export class LoginPage {
       this.loginError = true;
       console.warn(`Authentication failed: ${err.message}`);
     });
+  }
+
+  // Open account creation page on call
+  public createAccount() {
+    this.nav.push(CreateUserPage);
   }
 }

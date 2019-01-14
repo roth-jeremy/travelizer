@@ -5,14 +5,60 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+    <ion-navbar>
+      <ion-title>Register</ion-title>
+    </ion-navbar>
+  </ion-header>
+    
+    
+  <ion-content padding>
+      <form (ngSubmit)="register($event)" #registerForm="ngForm">
+          <ion-row>
+            <ion-col>
+              <ion-list inset>
+    
+                <ion-item>
+                  <ion-input type="text" placeholder="Username" name="name" required minlength="3" maxlength="25" #nameInput='ngModel' [(ngModel)]="registerCredentials.name" required></ion-input>
+                </ion-item>
+    
+                <ion-item>
+                  <ion-input type="password" placeholder="Password" name="password" required minlength="4" #passwordInput='ngModel' [(ngModel)]="registerCredentials.password" required></ion-input>
+                </ion-item>
 
-  <ion-navbar>
-    <ion-title>CreateUser</ion-title>
-  </ion-navbar>
+                <!-- Error message displayed if the username is not filled -->
+                <ion-item *ngIf='nameInput.errors?.required && nameInput.dirty' no-lines>
+                  <p ion-text color='danger'>Username is required.</p>
+                </ion-item>
 
-</ion-header>
+                <!-- Error message displayed if the password is not filled -->
+                <ion-item *ngIf='passwordInput.errors?.required && passwordInput.dirty' no-lines>
+                    <p ion-text color='danger'>Password is required.</p>
+                  </ion-item>
 
+                <!-- Error message displayed if the username already exists -->
+                <ion-item *ngIf='nameExists' no-lines>
+                    <p ion-text color='danger'>Username already exists.</p>
+                </ion-item>
 
-<ion-content padding>
+                <!-- Error message displayed if the username is too short or too long -->
+                <ion-item *ngIf='(nameInput.errors?.minlength || nameInput.errors?.maxlength) && nameInput.dirty' no-lines>
+                    <p ion-text color='danger'>Username is forbidden.</p>
+                </ion-item>
 
-</ion-content>
+                <!-- Error message displayed if the password is too short -->
+                <ion-item *ngIf='passwordInput.errors?.minlength && passwordInput.dirty' no-lines>
+                    <p ion-text color='danger'>Password is too short.</p>
+                </ion-item>
+    
+              </ion-list>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col class="signup-col">
+              <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register</button>
+            </ion-col>
+          </ion-row>
+    
+        </form>
+    </ion-content>

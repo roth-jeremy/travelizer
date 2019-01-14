@@ -21,6 +21,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { PlacesVisitedPage } from '../pages/places-visited/places-visited';
 import { CreateTripPage } from '../pages/create-trip/create-trip';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { CreateUserPage } from '../pages/create-user/create-user';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     AddPlacePage,
     PlacesVisitedPage,
     CreateTripPage,
+    CreateUserPage,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +56,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     AddPlacePage,
     PlacesVisitedPage,
     CreateTripPage,
+    CreateUserPage,
   ],
   providers: [
     StatusBar,
@@ -61,7 +64,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     Camera,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
   ]
 })
 
