@@ -16,4 +16,5 @@
 <ion-content padding>
     <button ion-button color="light" (click)="takePicture()">ADD PICTURE</button>
     <img *ngIf='pictureData' src='data:image/jpeg;base64,{{ pictureData }}' />
+    <button ion-button color="light" (click)="addLocation()">ADD LOCATION</button>
 </ion-content>

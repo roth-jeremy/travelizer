@@ -20,6 +20,7 @@ import { Camera } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 import { PlacesVisitedPage } from '../pages/places-visited/places-visited';
 import { CreateTripPage } from '../pages/create-trip/create-trip';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CreateTripPage } from '../pages/create-trip/create-trip';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     IonicStorageModule.forRoot(),
+    LeafletModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
