@@ -15,6 +15,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthProvider } from '../providers/auth/auth';
+import { AddPlacePage } from '../pages/add-place/add-place';
+import { Camera } from '@ionic-native/camera';
+import { Geolocation } from '@ionic-native/geolocation';
+import { PlacesVisitedPage } from '../pages/places-visited/places-visited';
+import { CreateTripPage } from '../pages/create-trip/create-trip';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,9 @@ import { AuthProvider } from '../providers/auth/auth';
     HelpPage,
     SettingsPage,
     LoginPage,
+    AddPlacePage,
+    PlacesVisitedPage,
+    CreateTripPage,
   ],
   imports: [
     BrowserModule,
@@ -41,10 +49,15 @@ import { AuthProvider } from '../providers/auth/auth';
     HelpPage,
     SettingsPage,
     LoginPage,
+    AddPlacePage,
+    PlacesVisitedPage,
+    CreateTripPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider
   ]
