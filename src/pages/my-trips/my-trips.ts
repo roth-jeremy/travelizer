@@ -30,6 +30,9 @@ export class MyTripsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyTripsPage');
+  }
+
+  ionViewDidEnter() {
     this.listTrips();
   }
   

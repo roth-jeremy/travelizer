@@ -18,5 +18,5 @@
 
 <ion-content padding>
     <button ion-button color="light" (click)="PlacesVisited(trip)" *ngFor='let trip of trips'>{{ trip.title }}</button>
-    <button ion-button color="light" (click)="AddTrip()">ADD TRIP</button>
+    <button ion-button (click)="AddTrip()">ADD TRIP</button>
 </ion-content>
