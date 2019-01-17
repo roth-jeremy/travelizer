@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
+import { QimgImage } from '../../models/qimg-image';
+import { PictureProvider } from '../../providers/picture/picture';
 
 /**
  * Generated class for the AddPlacePage page.
@@ -16,7 +18,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class AddPlacePage {
   pictureData: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private geolocation: Geolocation) {
+  picture: QimgImage;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private geolocation: Geolocation, private pictureService: PictureProvider) {
   }
 
   ionViewDidLoad() {
@@ -24,7 +27,12 @@ export class AddPlacePage {
   }
 
   takePicture() {
-    const options: CameraOptions = {
+    this.pictureService.takeAndUploadPicture().subscribe(picture => {
+      this.picture = picture;
+    }, err => {
+      console.warn('Could not take picture', err);
+    });
+    /*const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
@@ -34,7 +42,7 @@ export class AddPlacePage {
       this.pictureData = pictureData;
     }).catch(err => {
       console.warn(`Could not take picture because: ${err.message}`);
-    });
+    });*/
   }
   addLocation() {
     const geolocationPromise = this.geolocation.getCurrentPosition();

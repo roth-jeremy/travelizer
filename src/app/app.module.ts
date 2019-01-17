@@ -22,6 +22,7 @@ import { PlacesVisitedPage } from '../pages/places-visited/places-visited';
 import { CreateTripPage } from '../pages/create-trip/create-trip';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { CreateUserPage } from '../pages/create-user/create-user';
+import { PictureProvider } from '../providers/picture/picture';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { CreateUserPage } from '../pages/create-user/create-user';
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
+    PictureProvider,
   ]
 })
 
