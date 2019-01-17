@@ -4,6 +4,8 @@ import { AddPlacePage } from '../add-place/add-place';
 import { Nav } from 'ionic-angular';
 import { latLng, MapOptions, marker, Marker, tileLayer } from 'leaflet';
 import { Trip } from '../../models/trip';
+import { Place } from '../../models/place';
+import { HttpClient } from '@angular/common/http';
 
 
 /**
@@ -23,7 +25,9 @@ export class PlacesVisitedPage {
 
   trip : Trip;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav) {
+  places : Place[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav, private http: HttpClient) {
     const tileLayerUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     const tileLayerOptions = { maxZoom: 18 };
     this.mapOptions = {
@@ -47,8 +51,26 @@ export class PlacesVisitedPage {
     console.log('ionViewDidLoad PlacesVisitedPage');
     this.trip = this.navParams.get('trip');
   }
+
+  ionViewDidEnter() {
+    this.listPlaces(this.trip);
+  }
   
-  AddPlace() {
-    this.nav.push(AddPlacePage);
+  AddPlace(trip: Trip) {
+    this.nav.push(AddPlacePage, {
+      trip: trip
+    });
+  }
+
+  listPlaces(trip: Trip) {
+    let placesURL = 'https://comem-appmob-2018-2019-d.herokuapp.com/api/places';
+
+    this.http.get<Place[]>(placesURL, {
+      params:{
+        trip: trip.id
+      }
+    }).subscribe(placesList => {
+      this.places = placesList;
+    });
   }
 }

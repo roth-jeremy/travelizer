@@ -68,7 +68,7 @@ export class CreateTripPage {
 
     this.http.post<Trip>(tripUrl, this.tripInfo).subscribe(createdTrip => {
       this.TripEvent.publish('newTrip', true);
-      this.navCtrl.push(MyTripsPage);
+      this.navCtrl.pop();
     }, err => {
       console.log(err);
       this.tripCreationError = true;

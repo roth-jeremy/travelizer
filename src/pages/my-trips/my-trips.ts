@@ -29,6 +29,9 @@ export class MyTripsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyTripsPage');
+  }
+
+  ionViewDidEnter() {
     this.listTrips();
   }
   
@@ -39,13 +42,6 @@ export class MyTripsPage {
     this.http.get<Trip[]>(tripsURL).subscribe(tripsList => {
       this.trips = tripsList;
     });
-  }
-
-  retrieveTrip(tripID) {
-
-    let tripURL = 'https://comem-appmob-2018-2019-d.herokuapp.com/api/trips/' + tripID ;
-
-    this.navCtrl.push(tripURL);
   }
 
   AddTrip() {
