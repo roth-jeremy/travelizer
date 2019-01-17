@@ -20,7 +20,7 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
-    "@asymmetrik/ngx-leaflet": "^5.0.1",
+    "@asymmetrik/ngx-leaflet": "^4.0.0",
     "@ionic-native/camera": "^4.19.0",
     "@ionic-native/core": "~4.18.0",
     "@ionic-native/geolocation": "^4.19.0",
@@ -70,7 +70,5 @@
   },
   "config": {
     "ionic_copy": "copy.config.js"
-  }
-}
   }
 }

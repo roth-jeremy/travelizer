@@ -14,5 +14,9 @@
 
 
 <ion-content padding>
+    <div class='map' leaflet 
+      [leafletOptions]='mapOptions'
+      [leafletLayers]='mapMarkers'>
+    </div>
     <button ion-button color="light" (click)="AddPlace()">ADD PLACE</button>
 </ion-content>
