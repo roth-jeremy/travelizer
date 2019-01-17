@@ -14,5 +14,42 @@
 
 
 <ion-content padding>
+    <form (ngSubmit)="saveTrip($event)" #createTripForm="ngForm">
+  
+              <ion-item>
+                <ion-input type="text" placeholder="Title" name="title" required minlength="3" maxlength="300" #titleInput='ngModel' [(ngModel)]="tripInfo.title"></ion-input>
+              </ion-item>
+
+              <!-- Error message displayed if the title is not filled -->
+              <ion-item *ngIf='titleInput.errors?.required && titleInput.dirty' no-lines>
+                  <p ion-text color='danger'>Title is required.</p>
+              </ion-item>
+
+              <!-- Error message displayed if the title is too short or too long -->
+              <ion-item *ngIf='(titleInput.errors?.minlength || titleInput.errors?.maxlength) && titleInput.dirty' no-lines>
+                  <p ion-text color='danger'>Title is forbidden.</p>
+              </ion-item>
+  
+              <ion-item>
+                <ion-textarea placeholder="Description" name="description" required minlength="5" maxlength="50000" #descriptionInput='ngModel' [(ngModel)]="tripInfo.description" required></ion-textarea>
+              </ion-item>              
+
+              <!-- Error message displayed if the description is not filled -->
+              <ion-item *ngIf='descriptionInput.errors?.required && descriptionInput.dirty' no-lines>
+                  <p ion-text color='danger'>Description is required.</p>
+              </ion-item>              
+
+              <!-- Error message displayed if the description is too short or too long -->
+              <ion-item *ngIf='(descriptionInput.errors?.minlength || descriptionInput.errors?.maxlength) && descriptionInput.dirty' no-lines>
+                  <p ion-text color='danger'>Description is forbidden.</p>
+              </ion-item>
+  
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button class="submit-btn" full type="submit" [disabled]="!createTripForm.form.valid">Save</button>
+          </ion-col>
+        </ion-row>
+  
+      </form>
 
 </ion-content>

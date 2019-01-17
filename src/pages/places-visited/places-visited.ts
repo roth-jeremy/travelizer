@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AddPlacePage } from '../add-place/add-place';
 import { Nav } from 'ionic-angular';
+import { Trip } from '../../models/trip';
 
 
 /**
@@ -17,11 +18,14 @@ import { Nav } from 'ionic-angular';
 })
 export class PlacesVisitedPage {
 
+  trip : Trip;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlacesVisitedPage');
+    this.trip = this.navParams.get('trip');
   }
 
   AddPlace() {
