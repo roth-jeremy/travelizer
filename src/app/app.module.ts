@@ -13,7 +13,7 @@ import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthProvider } from '../providers/auth/auth';
 import { AddPlacePage } from '../pages/add-place/add-place';
 import { Camera } from '@ionic-native/camera';
@@ -23,6 +23,7 @@ import { CreateTripPage } from '../pages/create-trip/create-trip';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { PictureProvider } from '../providers/picture/picture';
+import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { PictureProvider } from '../providers/picture/picture';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     PictureProvider,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorProvider, multi: true }
   ]
 })
 

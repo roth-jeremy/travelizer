@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Nav } from 'ionic-angular';
 import { PlacesVisitedPage } from '../places-visited/places-visited';
 import { CreateTripPage } from '../create-trip/create-trip';
+import { Trip } from '../../models/trip';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Generated class for the MyTripsPage page.
@@ -17,18 +19,42 @@ import { CreateTripPage } from '../create-trip/create-trip';
 })
 export class MyTripsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav) {
+  /**
+   * The trips table
+   */
+  trips : Trip[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav, private http: HttpClient) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyTripsPage');
+    this.listTrips();
+  }
+  
+
+  listTrips() {
+    let tripsURL = 'https://comem-appmob-2018-2019-d.herokuapp.com/api/trips';
+
+    this.http.get<Trip[]>(tripsURL).subscribe(tripsList => {
+      this.trips = tripsList;
+    });
+  }
+
+  retrieveTrip(tripID) {
+
+    let tripURL = 'https://comem-appmob-2018-2019-d.herokuapp.com/api/trips/' + tripID ;
+
+    this.navCtrl.push(tripURL);
   }
 
   AddTrip() {
     this.nav.push(CreateTripPage);
   }
-  PlacesVisited() {
-    this.nav.push(PlacesVisitedPage);
+  PlacesVisited(trip:Trip) {
+    this.nav.push(PlacesVisitedPage, {
+      trip: trip
+    });
   }
 
 }

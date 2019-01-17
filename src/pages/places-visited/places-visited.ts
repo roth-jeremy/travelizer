@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AddPlacePage } from '../add-place/add-place';
 import { Nav } from 'ionic-angular';
 import { latLng, MapOptions, marker, Marker, tileLayer } from 'leaflet';
+import { Trip } from '../../models/trip';
+
 
 /**
  * Generated class for the PlacesVisitedPage page.
@@ -18,6 +20,8 @@ import { latLng, MapOptions, marker, Marker, tileLayer } from 'leaflet';
 export class PlacesVisitedPage {
   mapOptions: MapOptions;
   mapMarkers: Marker[];
+
+  trip : Trip;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav) {
     const tileLayerUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -41,6 +45,7 @@ export class PlacesVisitedPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlacesVisitedPage');
+    this.trip = this.navParams.get('trip');
   }
   
   AddPlace() {
