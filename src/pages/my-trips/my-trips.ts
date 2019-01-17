@@ -5,6 +5,7 @@ import { PlacesVisitedPage } from '../places-visited/places-visited';
 import { CreateTripPage } from '../create-trip/create-trip';
 import { Trip } from '../../models/trip';
 import { HttpClient } from '@angular/common/http';
+import { config } from '../../app/config';
 
 /**
  * Generated class for the MyTripsPage page.
@@ -34,19 +35,13 @@ export class MyTripsPage {
   
 
   listTrips() {
-    let tripsURL = 'https://comem-appmob-2018-2019-d.herokuapp.com/api/trips';
+    let tripsURL = config.apiUrl+'api/trips';
 
     this.http.get<Trip[]>(tripsURL).subscribe(tripsList => {
       this.trips = tripsList;
     });
   }
 
-  retrieveTrip(tripID) {
-
-    let tripURL = 'https://comem-appmob-2018-2019-d.herokuapp.com/api/trips/' + tripID ;
-
-    this.navCtrl.push(tripURL);
-  }
 
   AddTrip() {
     this.nav.push(CreateTripPage);

@@ -17,5 +17,11 @@
 
 
 <ion-content padding>
-
+    <ion-item>
+        <ion-input type='text' name='search' [(ngModel)]='searchtext'></ion-input>
+    </ion-item>
+    <div padding>
+      <button ion-button block type='submit' (click)="listTrips()">Search</button>
+    </div>
+    <button ion-button color="light" (click)="PlacesVisited(trip)" *ngFor='let trip of trips'>{{ trip.title }}</button>
 </ion-content>
