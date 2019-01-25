@@ -1,0 +1,60 @@
+<!--
+  Generated template for the EditPlacePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title >EditPlace {{ placeInfo.name }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="patchPlace($event)" #createPlaceForm="ngForm">
+  
+    <ion-item>
+      <ion-input type="text" placeholder="Name" name="name" required minlength="3" maxlength="100" #nameInput='ngModel' [(ngModel)]="placeInfo.name"></ion-input>
+    </ion-item>
+
+    <!-- Error message displayed if the name is not filled -->
+    <ion-item *ngIf='nameInput.errors?.required && nameInput.dirty' no-lines>
+        <p ion-text color='danger'>Name is required.</p>
+    </ion-item>
+
+    <!-- Error message displayed if the name is too short or too long -->
+    <ion-item *ngIf='(nameInput.errors?.minlength || nameInput.errors?.maxlength) && nameInput.dirty' no-lines>
+        <p ion-text color='danger'>Name is forbidden.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea placeholder="Description" name="description" required minlength="5" maxlength="50000" #descriptionInput='ngModel' [(ngModel)]="placeInfo.description" required></ion-textarea>
+    </ion-item>              
+
+    <!-- Error message displayed if the description is not filled -->
+    <ion-item *ngIf='descriptionInput.errors?.required && descriptionInput.dirty' no-lines>
+        <p ion-text color='danger'>Description is required.</p>
+    </ion-item>              
+
+    <!-- Error message displayed if the description is too short or too long -->
+    <ion-item *ngIf='(descriptionInput.errors?.minlength || descriptionInput.errors?.maxlength) && descriptionInput.dirty' no-lines>
+        <p ion-text color='danger'>Description is forbidden.</p>
+    </ion-item>
+
+  <ion-row>
+      <button ion-button color="light" type="button" (click)="takePicture()">ADD PICTURE</button>
+      <img *ngIf='pictureData' src='data:image/jpeg;base64,{{ pictureData }}' />
+      <button ion-button color="light" type="button" (click)="addLocation()">ADD LOCATION</button>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="signup-col">
+      <button ion-button class="submit-btn" full type="submit" [disabled]="!createPlaceForm.form.valid">Save</button>
+    </ion-col>
+  </ion-row>
+
+</form>
+</ion-content>

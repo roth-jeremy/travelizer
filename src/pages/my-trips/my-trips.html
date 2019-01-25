@@ -15,8 +15,10 @@
 
 </ion-header>
 
-
 <ion-content padding>
-    <button ion-button color="light" (click)="PlacesVisited(trip)" *ngFor='let trip of trips'>{{ trip.title }}</button>
-    <button ion-button (click)="AddTrip()">ADD TRIP</button>
+    <ion-row *ngFor='let trip of trips'>
+      <button ion-button color="light" (click)="PlacesVisited(trip)">{{ trip.title }}</button>
+      <button ion-button color="danger" (click)="DeleteTrip(trip)">x</button>
+    </ion-row>
+    <button ion-button (click)="AddTrip()">ADD A TRIP</button>
 </ion-content>

@@ -7,6 +7,7 @@ import { Trip } from '../../models/trip';
 import { Place } from '../../models/place';
 import { HttpClient } from '@angular/common/http';
 import { PlaceRequest, GeoJsonPoint } from '../../models/place-request';
+import { EditPlacePage } from '../edit-place/edit-place';
 
 
 /**
@@ -86,5 +87,11 @@ export class PlacesVisitedPage {
         direction: 'left'
     }).bindPopup('<b>'+this.places[0].name+'</b><br>'+this.places[0].description+'.<img src="'+this.places[0].pictureUrl+'" alt =""/>').openPopup()];
     });
+  }
+
+  editPlace(place: Place) {
+    this.nav.push(EditPlacePage, {
+      place: place
+    })
   }
 }
