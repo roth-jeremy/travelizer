@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ToastOptions } from 'ionic-angular';
 import { Place } from '../../models/place';
 import { HttpClient } from '@angular/common/http';
 import { config } from '../../app/config';
@@ -33,7 +33,7 @@ export class EditPlacePage {
 
   placeInfo: Place;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, private geolocation: Geolocation, public toastCtrl: ToastController) {
     this.placeInfo = this.navParams.get('place');
   }
 
@@ -42,17 +42,26 @@ export class EditPlacePage {
   }
 
   patchPlace() {
-
     // Hide previous error messages
     this.placeUpdateError = false;
 
     this.http.patch<Place>(this.apiUrl + this.placeInfo.id, this.placeInfo).subscribe(() =>{
-      // this.PlaceEvent.publish('newPlace', true);
+      this.notify("Place updated successfully");
       this.navCtrl.pop();
     }, err => {
       console.log(err);
       this.placeUpdateError = true;
+      this.notify("Place update failed");
       console.warn(`Place update failed: ${err.message}`);
     })
   }
+
+  notify(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top',
+    }).present();
+  }
+
 }

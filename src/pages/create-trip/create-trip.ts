@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { NavController, NavParams, Events, ToastController, ToastOptions } from 'ionic-angular';
 import { TripRequest } from '../../models/trip-request';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -41,7 +41,7 @@ export class CreateTripPage {
   @ViewChild(NgForm)
   form: NgForm;
 
-  constructor(private auth: AuthProvider, public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, public TripEvent: Events) {
+  constructor(private auth: AuthProvider, public navCtrl: NavController, public navParams: NavParams, private http: HttpClient, public TripEvent: Events, public toastCtrl: ToastController) {
     this.tripInfo = new TripRequest();
   }
 
@@ -68,12 +68,22 @@ export class CreateTripPage {
 
     this.http.post<Trip>(tripUrl, this.tripInfo).subscribe(createdTrip => {
       this.TripEvent.publish('newTrip', true);
+      this.notify("Trip created successfully");
       this.navCtrl.pop();
     }, err => {
       console.log(err);
       this.tripCreationError = true;
+      this.notify("Trip creation failed")
       console.warn(`Trip creation failed: ${err.message}`);
     })
 
+  }
+
+  notify(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top',
+    }).present();
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ToastOptions } from 'ionic-angular';
 import { Nav } from 'ionic-angular';
 import { PlacesVisitedPage } from '../places-visited/places-visited';
 import { CreateTripPage } from '../create-trip/create-trip';
@@ -30,7 +30,7 @@ export class MyTripsPage {
    */
   apiUrl = config.apiUrl+'api/trips';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav, private http: HttpClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav, public toastCtrl: ToastController , private http: HttpClient) {
   }
 
   ionViewDidLoad() {
@@ -55,6 +55,9 @@ export class MyTripsPage {
   DeleteTrip(trip:Trip): void {
     this.http.delete(this.apiUrl + "/" + trip.id).subscribe(() => {
       this.listTrips();
+      this.notify("Trip deleted successfully");
+    }, err => {
+      this.notify("Trip deletion failed");
     });
   }
 
@@ -62,6 +65,14 @@ export class MyTripsPage {
     this.nav.push(PlacesVisitedPage, {
       trip: trip
     });
+  }
+
+  notify(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top',
+    }).present();
   }
 
 }

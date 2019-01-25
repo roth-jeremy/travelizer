@@ -75,7 +75,7 @@ export class PlacesVisitedPage {
     });
   }
 
-  editPlace(place: Place) {
+  notify(place: Place) {
     this.nav.push(EditPlacePage, {
       place: place
     })

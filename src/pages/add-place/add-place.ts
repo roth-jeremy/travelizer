@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { NavController, NavParams, Events, ToastController, ToastOptions } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 import { QimgImage } from '../../models/qimg-image';
@@ -41,6 +41,8 @@ export class AddPlacePage {
    */
   placeCreationError: boolean;
 
+  locationAdded: boolean;
+
   /**
    * The angular form.
    */
@@ -48,8 +50,9 @@ export class AddPlacePage {
   form: NgForm;
 
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private geolocation: Geolocation, private pictureService: PictureProvider, private http: HttpClient, public PlaceEvent: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private geolocation: Geolocation, private pictureService: PictureProvider, private http: HttpClient, public PlaceEvent: Events, public toastCtrl: ToastController) {
     this.placeInfo = new PlaceRequest();
+    this.locationAdded = false;
   }
 
   ionViewDidLoad() {
@@ -76,10 +79,12 @@ export class AddPlacePage {
 
     this.http.post<Place>(placeUrl, this.placeInfo).subscribe(createdPlace => {
       this.PlaceEvent.publish('newPlace', true);
+      this.notify("Place added successfully");
       this.navCtrl.pop();
     }, err => {
       console.log(err);
       this.placeCreationError = true;
+      this.notify("Place creation failed");
       console.warn(`Place creation failed: ${err.message}`);
     })
 
@@ -89,6 +94,7 @@ export class AddPlacePage {
     this.pictureService.takeAndUploadPicture().subscribe(picture => {
       this.picture = picture;
     }, err => {
+      this.notify("Could not take picture");
       console.warn('Could not take picture', err);
     });
     /*const options: CameraOptions = {
@@ -103,18 +109,12 @@ export class AddPlacePage {
       console.warn(`Could not take picture because: ${err.message}`);
     });*/
   }
-  addLocation() {
-    const geolocationPromise = this.geolocation.getCurrentPosition();
-    geolocationPromise.then(position => {
-      const coords = position.coords;
-      this.placeInfo.location = new GeoJsonPoint();
-      this.placeInfo.location.type = "Point";
-      this.placeInfo.location.coordinates = [coords.longitude, coords.latitude];
-      console.log(`User is at ${coords.longitude}, ${coords.latitude}`);
 
-    }).catch(err => {
-      console.warn(`Could not retrieve user position because: ${err.message}`);
-    });
+  notify(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top',
+    }).present();
   }
-
 }
