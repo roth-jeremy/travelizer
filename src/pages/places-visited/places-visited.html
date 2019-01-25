@@ -18,6 +18,9 @@
       [leafletOptions]='mapOptions'
       [leafletLayers]='mapMarkers'>
     </div>
-    <button ion-button color="light" (click)="listPlaces(trip)" *ngFor='let place of places'>{{ place.name }}</button>
+    <ion-row *ngFor='let place of places'>
+      <button ion-button color="light" (click)="listPlaces(trip)">{{ place.name }}</button>
+      <button ion-button (click)="editPlace(place)"><ion-icon name="create"></ion-icon></button>
+    </ion-row>
     <button ion-button (click)="AddPlace(trip)">ADD PLACE</button>
 </ion-content>

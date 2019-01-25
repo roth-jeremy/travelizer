@@ -25,6 +25,11 @@ export class MyTripsPage {
    */
   trips : Trip[];
 
+  /**
+   * The trips API url
+   */
+  apiUrl = config.apiUrl+'api/trips';
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private  nav:Nav, private http: HttpClient) {
   }
 
@@ -38,17 +43,21 @@ export class MyTripsPage {
   
 
   listTrips() {
-    let tripsURL = config.apiUrl+'api/trips';
-
-    this.http.get<Trip[]>(tripsURL).subscribe(tripsList => {
+    this.http.get<Trip[]>(this.apiUrl).subscribe(tripsList => {
       this.trips = tripsList;
     });
   }
 
-
   AddTrip() {
     this.nav.push(CreateTripPage);
   }
+
+  DeleteTrip(trip:Trip): void {
+    this.http.delete(this.apiUrl + "/" + trip.id).subscribe(() => {
+      this.listTrips();
+    });
+  }
+
   PlacesVisited(trip:Trip) {
     this.nav.push(PlacesVisitedPage, {
       trip: trip

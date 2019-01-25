@@ -24,6 +24,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { CreateUserPage } from '../pages/create-user/create-user';
 import { PictureProvider } from '../providers/picture/picture';
 import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
+import { EditPlacePage } from '../pages/edit-place/edit-place';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
     PlacesVisitedPage,
     CreateTripPage,
     CreateUserPage,
+    EditPlacePage,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,7 @@ import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-inte
     PlacesVisitedPage,
     CreateTripPage,
     CreateUserPage,
+    EditPlacePage,
   ],
   providers: [
     StatusBar,

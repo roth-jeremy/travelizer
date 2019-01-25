@@ -6,6 +6,7 @@ import { latLng, MapOptions, marker, Marker, tileLayer } from 'leaflet';
 import { Trip } from '../../models/trip';
 import { Place } from '../../models/place';
 import { HttpClient } from '@angular/common/http';
+import { EditPlacePage } from '../edit-place/edit-place';
 
 
 /**
@@ -72,5 +73,11 @@ export class PlacesVisitedPage {
     }).subscribe(placesList => {
       this.places = placesList;
     });
+  }
+
+  editPlace(place: Place) {
+    this.nav.push(EditPlacePage, {
+      place: place
+    })
   }
 }
