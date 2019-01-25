@@ -50,7 +50,7 @@ export class EditPlacePage {
     // Hide previous error messages
     this.placeUpdateError = false;
 
-    this.http.patch<Place>(this.apiUrl + this.placeInfo.tripId, this.placeInfo).subscribe(() =>{
+    this.http.patch<Place>(this.apiUrl + this.placeInfo.id, this.placeInfo).subscribe(() =>{
       this.notify("Place updated successfully");
       this.navCtrl.pop();
     }, err => {
@@ -89,6 +89,7 @@ export class EditPlacePage {
       console.warn(`Could not take picture because: ${err.message}`);
     });*/
   }
+
   addLocation() {
     const geolocationPromise = this.geolocation.getCurrentPosition();
     geolocationPromise.then(position => {

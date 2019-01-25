@@ -99,10 +99,4 @@ export class PlacesVisitedPage {
       place: place
     });
   }
-
-  notify(place: Place) {
-    this.nav.push(EditPlacePage, {
-      place: place
-    })
-  }
 }

@@ -1,4 +1,5 @@
 export class PlaceRequest {
+    id: string;
     name: string;
     description: string;
     location: GeoJsonPoint;
