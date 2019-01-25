@@ -57,7 +57,7 @@ export class MyTripsPage {
       this.listTrips();
       this.notify("Trip deleted successfully");
     }, err => {
-      this.notify("Trip deletion failed");
+      this.notify("Only trips created by the user are deletable");
     });
   }
 
