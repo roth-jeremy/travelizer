@@ -2,6 +2,7 @@ export class PlaceRequest {
     name: string;
     description: string;
     location: GeoJsonPoint;
+    pictureUrl: string;
     tripId: string;
   }
 

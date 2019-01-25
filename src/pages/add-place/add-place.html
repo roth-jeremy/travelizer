@@ -45,9 +45,9 @@
         </ion-item>
 
       <ion-row>
+          <button ion-button color="light" type="button" (click)="addLocation()">ADD LOCATION</button>
           <button ion-button color="light" type="button" (click)="takePicture()">ADD PICTURE</button>
           <img *ngIf='pictureData' src='data:image/jpeg;base64,{{ pictureData }}' />
-          <button ion-button color="light" type="button" (click)="addLocation()">ADD LOCATION</button>
       </ion-row>
 
       <ion-row>

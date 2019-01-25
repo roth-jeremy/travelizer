@@ -88,6 +88,8 @@ export class AddPlacePage {
   takePicture() {
     this.pictureService.takeAndUploadPicture().subscribe(picture => {
       this.picture = picture;
+      this.placeInfo.pictureUrl = this.picture.url;
+      console.log(`Picture url saved ${this.placeInfo.pictureUrl}`);
     }, err => {
       console.warn('Could not take picture', err);
     });
