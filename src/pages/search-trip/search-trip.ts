@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Trip } from '../../models/trip';
 import { config } from '../../app/config';
+import { PlacesVisitedPage } from '../places-visited/places-visited';
 
 /**
  * Generated class for the SearchTripPage page.
@@ -39,6 +40,12 @@ export class SearchTripPage {
       }
     }).subscribe(tripsList => {
       this.trips = tripsList;
+    });
+  }
+
+  PlacesVisited(trip:Trip) {
+    this.navCtrl.push(PlacesVisitedPage, {
+      trip: trip
     });
   }
 }

@@ -73,19 +73,30 @@ export class PlacesVisitedPage {
       }
     }).subscribe(placesList => {
       this.places = placesList;
-      var loca = JSON.stringify(this.places[0].location);
-      loca = loca.replace('{"coordinates":[','');
-      loca = loca.replace('],"type":"Point"}','');
-      var res = loca.split(",");
-      var p1=parseFloat(res[0]);
-      var p2=parseFloat(res[1]);
-      console.log(this.places[0]);
-      console.log(p1);
-      console.log(p2);
-      this.mapMarkers = [marker([p2,p1]).bindTooltip(this.places[0].name,{
-        permanent: true, 
-        direction: 'left'
-    }).bindPopup('<b>'+this.places[0].name+'</b><br>'+this.places[0].description+'.<img src="'+this.places[0].pictureUrl+'" alt =""/>').openPopup()];
+      if(this.places.length > 0) this.populateMap();
+    });
+  }
+
+  
+  populateMap() {
+    var loca = JSON.stringify(this.places[0].location);
+    loca = loca.replace('{"coordinates":[', '');
+    loca = loca.replace('],"type":"Point"}', '');
+    var res = loca.split(",");
+    var p1 = parseFloat(res[0]);
+    var p2 = parseFloat(res[1]);
+    console.log(this.places[0]);
+    console.log(p1);
+    console.log(p2);
+    this.mapMarkers = [marker([p2, p1]).bindTooltip(this.places[0].name, {
+      permanent: true,
+      direction: 'left'
+    }).bindPopup('<b>' + this.places[0].name + '</b><br>' + this.places[0].description + '.<img src="' + this.places[0].pictureUrl + '" alt =""/>').openPopup()];
+  }
+
+  editPlace(place:Place) {
+    this.navCtrl.push(EditPlacePage, {
+      place: place
     });
   }
 

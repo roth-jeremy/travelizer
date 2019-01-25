@@ -50,7 +50,7 @@ export class EditPlacePage {
     // Hide previous error messages
     this.placeUpdateError = false;
 
-    this.http.patch<Place>(this.apiUrl + this.placeInfo.id, this.placeInfo).subscribe(() =>{
+    this.http.patch<Place>(this.apiUrl + this.placeInfo.tripId, this.placeInfo).subscribe(() =>{
       this.notify("Place updated successfully");
       this.navCtrl.pop();
     }, err => {

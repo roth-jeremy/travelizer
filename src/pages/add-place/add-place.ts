@@ -112,6 +112,22 @@ export class AddPlacePage {
     });*/
   }
 
+  addLocation() {
+    const geolocationPromise = this.geolocation.getCurrentPosition();
+    geolocationPromise.then(position => {
+      const coords = position.coords;
+      this.placeInfo.location = new GeoJsonPoint();
+      this.placeInfo.location.type = "Point";
+      this.placeInfo.location.coordinates = [coords.longitude, coords.latitude];
+      console.log(`User is at ${coords.longitude}, ${coords.latitude}`);
+      this.locationAdded = true;
+      this.notify("Location added successfully");
+
+    }).catch(err => {
+      console.warn(`Could not retrieve user position because: ${err.message}`);
+    });
+  }
+
   notify(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
